@@ -28,7 +28,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
   livings-liquid:
-    image: gouravjawale/debug-selenium-attempt1
+    image: gouravjawale/selenium-dockerwithjenkins
     depends_on:
       - chrome
       - firefox
@@ -36,5 +36,5 @@ services:
       - BROWSER=chrome
       - HUB_HOST=hub
     volumes:
-      - ./test-result2:/usr/share/LivingsLiquidAdvanc/reports          
+      - ./output/test-result2:/usr/share/LivingsLiquidAdvanc/reports          
 

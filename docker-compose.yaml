@@ -1,0 +1,40 @@
+version: "3"
+services:
+  hub:
+    image: selenium/hub:latest
+
+  chrome:
+    image: selenium/node-chrome:latest
+    shm_size: '2g'
+    ports:
+      - "5900"
+      - "7900"
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443    
+  firefox:
+    image: selenium/node-firefox:latest
+    shm_size: '2g'
+    ports:
+      - "5900"
+      - "7900"
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  livings-liquid:
+    image: gouravjawale/debug-selenium-attempt1
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+    volumes:
+      - ./test-result2:/usr/share/LivingsLiquidAdvanc/reports          
+
